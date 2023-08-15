@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RestaurantManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="billId" />
+    </Key>
+    <Property Name="billId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tableId" Type="varchar" MaxLength="10" />
+    <Property Name="outDate" Type="date" />
+    <Property Name="inDate" Type="date" />
+    <Property Name="total" Type="int" />
+  </EntityType>
+  <EntityType Name="BillInfo">
+    <Key>
+      <PropertyRef Name="billId" />
+      <PropertyRef Name="catagoryId" />
+      <PropertyRef Name="foodId" />
+    </Key>
+    <Property Name="billId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="catagoryId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="foodId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="catagoryId" />
+      <PropertyRef Name="foodId" />
+    </Key>
+    <Property Name="catagoryId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="foodId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="foodname" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="price" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FoodCatagory">
+    <Key>
+      <PropertyRef Name="catagoryId" />
+    </Key>
+    <Property Name="catagoryId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="catagoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RTable">
+    <Key>
+      <PropertyRef Name="tableId" />
+    </Key>
+    <Property Name="tableId" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tableNumber" Type="int" Nullable="false" />
+    <Property Name="status" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Bill__tableId__4316F928">
+    <End Role="RTable" Type="Self.RTable" Multiplicity="0..1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RTable">
+        <PropertyRef Name="tableId" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="tableId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BillInfo__440B1D61">
+    <End Role="Food" Type="Self.Food" Multiplicity="1" />
+    <End Role="BillInfo" Type="Self.BillInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Food">
+        <PropertyRef Name="catagoryId" />
+        <PropertyRef Name="foodId" />
+      </Principal>
+      <Dependent Role="BillInfo">
+        <PropertyRef Name="catagoryId" />
+        <PropertyRef Name="foodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BillInfo__billId__44FF419A">
+    <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+    <End Role="BillInfo" Type="Self.BillInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="billId" />
+      </Principal>
+      <Dependent Role="BillInfo">
+        <PropertyRef Name="billId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Food__catagoryId__4222D4EF">
+    <End Role="FoodCatagory" Type="Self.FoodCatagory" Multiplicity="1" />
+    <End Role="Food" Type="Self.Food" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodCatagory">
+        <PropertyRef Name="catagoryId" />
+      </Principal>
+      <Dependent Role="Food">
+        <PropertyRef Name="catagoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RestaurantManagementDBModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BillInfo" EntityType="Self.BillInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FoodCatagory" EntityType="Self.FoodCatagory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RTable" EntityType="Self.RTable" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Bill__tableId__4316F928" Association="Self.FK__Bill__tableId__4316F928">
+      <End Role="RTable" EntitySet="RTable" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BillInfo__440B1D61" Association="Self.FK__BillInfo__440B1D61">
+      <End Role="Food" EntitySet="Food" />
+      <End Role="BillInfo" EntitySet="BillInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BillInfo__billId__44FF419A" Association="Self.FK__BillInfo__billId__44FF419A">
+      <End Role="Bill" EntitySet="Bill" />
+      <End Role="BillInfo" EntitySet="BillInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Food__catagoryId__4222D4EF" Association="Self.FK__Food__catagoryId__4222D4EF">
+      <End Role="FoodCatagory" EntitySet="FoodCatagory" />
+      <End Role="Food" EntitySet="Food" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

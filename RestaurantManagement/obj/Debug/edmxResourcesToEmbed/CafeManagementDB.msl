@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CafeManagementDBModelStoreContainer" CdmEntityContainer="CafeManagementDBEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="CafeManagementDBModel.Account">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="CafeManagementDBModel.Bill">
+        <MappingFragment StoreEntitySet="Bills">
+          <ScalarProperty Name="billid" ColumnName="billid" />
+          <ScalarProperty Name="tablenumber" ColumnName="tablenumber" />
+          <ScalarProperty Name="begindate" ColumnName="begindate" />
+          <ScalarProperty Name="enddate" ColumnName="enddate" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FoodReservations">
+      <EntityTypeMapping TypeName="CafeManagementDBModel.FoodReservation">
+        <MappingFragment StoreEntitySet="FoodReservations">
+          <ScalarProperty Name="billid" ColumnName="billid" />
+          <ScalarProperty Name="typeid" ColumnName="typeid" />
+          <ScalarProperty Name="foodid" ColumnName="foodid" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Foods">
+      <EntityTypeMapping TypeName="CafeManagementDBModel.Food">
+        <MappingFragment StoreEntitySet="Foods">
+          <ScalarProperty Name="typeid" ColumnName="typeid" />
+          <ScalarProperty Name="foodid" ColumnName="foodid" />
+          <ScalarProperty Name="foodname" ColumnName="foodname" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FoodTypes">
+      <EntityTypeMapping TypeName="CafeManagementDBModel.FoodType">
+        <MappingFragment StoreEntitySet="FoodTypes">
+          <ScalarProperty Name="typeid" ColumnName="typeid" />
+          <ScalarProperty Name="typename" ColumnName="typename" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_add_account" FunctionName="CafeManagementDBModel.Store.sp_add_account" />
+    <FunctionImportMapping FunctionImportName="sp_add_reservation" FunctionName="CafeManagementDBModel.Store.sp_add_reservation" />
+    <FunctionImportMapping FunctionImportName="sp_change_password" FunctionName="CafeManagementDBModel.Store.sp_change_password" />
+    <FunctionImportMapping FunctionImportName="sp_create_bill" FunctionName="CafeManagementDBModel.Store.sp_create_bill" />
+    <FunctionImportMapping FunctionImportName="sp_pay_bill" FunctionName="CafeManagementDBModel.Store.sp_pay_bill" />
+    <FunctionImportMapping FunctionImportName="sp_remove_account" FunctionName="CafeManagementDBModel.Store.sp_remove_account" />
+    <FunctionImportMapping FunctionImportName="sp_remove_bill" FunctionName="CafeManagementDBModel.Store.sp_remove_bill" />
+    <FunctionImportMapping FunctionImportName="sp_remove_reservation" FunctionName="CafeManagementDBModel.Store.sp_remove_reservation" />
+  </EntityContainerMapping>
+</Mapping>

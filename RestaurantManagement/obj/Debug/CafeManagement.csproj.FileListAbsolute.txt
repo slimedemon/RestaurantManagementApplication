@@ -1,0 +1,17 @@
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\CafeManagement.exe.config
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\CafeManagement.exe
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\CafeManagement.pdb
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\EntityFramework.dll
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\EntityFramework.SqlServer.dll
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\EntityFramework.xml
+E:\SourceCode\C#\CafeManagement\CafeManagement\bin\Debug\EntityFramework.SqlServer.xml
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.csproj.AssemblyReference.cache
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.csproj.SuggestedBindingRedirects.cache
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.LoginForm.resources
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.Properties.Resources.resources
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.csproj.GenerateResource.cache
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.csproj.CoreCompileInputs.cache
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.csproj.CopyComplete
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.exe
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.pdb
+E:\SourceCode\C#\CafeManagement\CafeManagement\obj\Debug\CafeManagement.TableManagementForm.resources

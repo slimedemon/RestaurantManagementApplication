@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CafeManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="pass" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="billid" />
+    </Key>
+    <Property Name="billid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tablenumber" Type="Int32" />
+    <Property Name="begindate" Type="DateTime" Precision="0" />
+    <Property Name="enddate" Type="DateTime" Precision="0" />
+    <Property Name="total" Type="Int32" />
+    <NavigationProperty Name="FoodReservations" Relationship="Self.FK__FoodReser__billi__412EB0B6" FromRole="Bills" ToRole="FoodReservations" />
+  </EntityType>
+  <EntityType Name="FoodReservation">
+    <Key>
+      <PropertyRef Name="billid" />
+      <PropertyRef Name="typeid" />
+      <PropertyRef Name="foodid" />
+    </Key>
+    <Property Name="billid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="typeid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="foodid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <NavigationProperty Name="Bill" Relationship="Self.FK__FoodReser__billi__412EB0B6" FromRole="FoodReservations" ToRole="Bills" />
+    <NavigationProperty Name="Food" Relationship="Self.FK__FoodReservations__403A8C7D" FromRole="FoodReservations" ToRole="Foods" />
+  </EntityType>
+  <EntityType Name="Food">
+    <Key>
+      <PropertyRef Name="typeid" />
+      <PropertyRef Name="foodid" />
+    </Key>
+    <Property Name="typeid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="foodid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="foodname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="FoodReservations" Relationship="Self.FK__FoodReservations__403A8C7D" FromRole="Foods" ToRole="FoodReservations" />
+    <NavigationProperty Name="FoodType" Relationship="Self.FK__Foods__typeid__3F466844" FromRole="Foods" ToRole="FoodTypes" />
+  </EntityType>
+  <EntityType Name="FoodType">
+    <Key>
+      <PropertyRef Name="typeid" />
+    </Key>
+    <Property Name="typeid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="typename" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Foods" Relationship="Self.FK__Foods__typeid__3F466844" FromRole="FoodTypes" ToRole="Foods" />
+  </EntityType>
+  <Association Name="FK__FoodReser__billi__412EB0B6">
+    <End Role="Bills" Type="Self.Bill" Multiplicity="1" />
+    <End Role="FoodReservations" Type="Self.FoodReservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bills">
+        <PropertyRef Name="billid" />
+      </Principal>
+      <Dependent Role="FoodReservations">
+        <PropertyRef Name="billid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FoodReservations__403A8C7D">
+    <End Role="Foods" Type="Self.Food" Multiplicity="1" />
+    <End Role="FoodReservations" Type="Self.FoodReservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Foods">
+        <PropertyRef Name="typeid" />
+        <PropertyRef Name="foodid" />
+      </Principal>
+      <Dependent Role="FoodReservations">
+        <PropertyRef Name="typeid" />
+        <PropertyRef Name="foodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Foods__typeid__3F466844">
+    <End Role="FoodTypes" Type="Self.FoodType" Multiplicity="1" />
+    <End Role="Foods" Type="Self.Food" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodTypes">
+        <PropertyRef Name="typeid" />
+      </Principal>
+      <Dependent Role="Foods">
+        <PropertyRef Name="typeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CafeManagementDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Bills" EntityType="Self.Bill" />
+    <EntitySet Name="FoodReservations" EntityType="Self.FoodReservation" />
+    <EntitySet Name="Foods" EntityType="Self.Food" />
+    <EntitySet Name="FoodTypes" EntityType="Self.FoodType" />
+    <AssociationSet Name="FK__FoodReser__billi__412EB0B6" Association="Self.FK__FoodReser__billi__412EB0B6">
+      <End Role="Bills" EntitySet="Bills" />
+      <End Role="FoodReservations" EntitySet="FoodReservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FoodReservations__403A8C7D" Association="Self.FK__FoodReservations__403A8C7D">
+      <End Role="Foods" EntitySet="Foods" />
+      <End Role="FoodReservations" EntitySet="FoodReservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Foods__typeid__3F466844" Association="Self.FK__Foods__typeid__3F466844">
+      <End Role="FoodTypes" EntitySet="FoodTypes" />
+      <End Role="Foods" EntitySet="Foods" />
+    </AssociationSet>
+    <FunctionImport Name="sp_add_account">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="pass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_add_reservation">
+      <Parameter Name="tablenumber" Mode="In" Type="Int32" />
+      <Parameter Name="typeid" Mode="In" Type="String" />
+      <Parameter Name="foodid" Mode="In" Type="String" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_change_password">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="oldpass" Mode="In" Type="String" />
+      <Parameter Name="pass" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_create_bill">
+      <Parameter Name="tablenumber" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_pay_bill">
+      <Parameter Name="tablenumber" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_remove_account">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_remove_bill">
+      <Parameter Name="tablenumber" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_remove_reservation">
+      <Parameter Name="tablenumber" Mode="In" Type="String" />
+      <Parameter Name="typeid" Mode="In" Type="String" />
+      <Parameter Name="foodid" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

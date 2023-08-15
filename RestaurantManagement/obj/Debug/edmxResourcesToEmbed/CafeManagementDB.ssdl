@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CafeManagementDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="pass" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Bills">
+    <Key>
+      <PropertyRef Name="billid" />
+    </Key>
+    <Property Name="billid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tablenumber" Type="int" />
+    <Property Name="begindate" Type="date" />
+    <Property Name="enddate" Type="date" />
+    <Property Name="total" Type="int" />
+  </EntityType>
+  <EntityType Name="FoodReservations">
+    <Key>
+      <PropertyRef Name="billid" />
+      <PropertyRef Name="typeid" />
+      <PropertyRef Name="foodid" />
+    </Key>
+    <Property Name="billid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="typeid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="foodid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Foods">
+    <Key>
+      <PropertyRef Name="typeid" />
+      <PropertyRef Name="foodid" />
+    </Key>
+    <Property Name="typeid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="foodid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="foodname" Type="nvarchar" MaxLength="100" />
+    <Property Name="price" Type="int" />
+  </EntityType>
+  <EntityType Name="FoodTypes">
+    <Key>
+      <PropertyRef Name="typeid" />
+    </Key>
+    <Property Name="typeid" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="typename" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__FoodReser__billi__412EB0B6">
+    <End Role="Bills" Type="Self.Bills" Multiplicity="1" />
+    <End Role="FoodReservations" Type="Self.FoodReservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bills">
+        <PropertyRef Name="billid" />
+      </Principal>
+      <Dependent Role="FoodReservations">
+        <PropertyRef Name="billid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FoodReservations__403A8C7D">
+    <End Role="Foods" Type="Self.Foods" Multiplicity="1" />
+    <End Role="FoodReservations" Type="Self.FoodReservations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Foods">
+        <PropertyRef Name="typeid" />
+        <PropertyRef Name="foodid" />
+      </Principal>
+      <Dependent Role="FoodReservations">
+        <PropertyRef Name="typeid" />
+        <PropertyRef Name="foodid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Foods__typeid__3F466844">
+    <End Role="FoodTypes" Type="Self.FoodTypes" Multiplicity="1" />
+    <End Role="Foods" Type="Self.Foods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodTypes">
+        <PropertyRef Name="typeid" />
+      </Principal>
+      <Dependent Role="Foods">
+        <PropertyRef Name="typeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_add_account" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="pass" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_add_reservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablenumber" Type="int" Mode="In" />
+    <Parameter Name="typeid" Type="varchar" Mode="In" />
+    <Parameter Name="foodid" Type="varchar" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_change_password" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="oldpass" Type="varchar" Mode="In" />
+    <Parameter Name="pass" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_create_bill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablenumber" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_pay_bill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablenumber" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_remove_account" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_remove_bill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablenumber" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_remove_reservation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tablenumber" Type="varchar" Mode="In" />
+    <Parameter Name="typeid" Type="varchar" Mode="In" />
+    <Parameter Name="foodid" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="CafeManagementDBModelStoreContainer">
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FoodReservations" EntityType="Self.FoodReservations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Foods" EntityType="Self.Foods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FoodTypes" EntityType="Self.FoodTypes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__FoodReser__billi__412EB0B6" Association="Self.FK__FoodReser__billi__412EB0B6">
+      <End Role="Bills" EntitySet="Bills" />
+      <End Role="FoodReservations" EntitySet="FoodReservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FoodReservations__403A8C7D" Association="Self.FK__FoodReservations__403A8C7D">
+      <End Role="Foods" EntitySet="Foods" />
+      <End Role="FoodReservations" EntitySet="FoodReservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Foods__typeid__3F466844" Association="Self.FK__Foods__typeid__3F466844">
+      <End Role="FoodTypes" EntitySet="FoodTypes" />
+      <End Role="Foods" EntitySet="Foods" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
